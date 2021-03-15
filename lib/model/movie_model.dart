@@ -15,8 +15,8 @@ class Movie {
     this.photo = "https://image.tmdb.org/t/p/w342" + map["poster_path"];
   }
 
-  @override
-  String toString() {
-    return this.title.toString();
-  }
+  // @override
+  // String toString() {
+  //   return this.title.toString();
+  // }
 }

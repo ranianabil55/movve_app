@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:movve_app/screens/home.dart';
 import 'package:movve_app/screens/splash_screen.dart';
 
 void main() {
@@ -12,8 +11,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Movve',
-      theme: ThemeData.dark(),
-      home: HomePage(),
+      theme: ThemeData.dark().copyWith(
+        primaryColor: Color(0xFF8C1F0F),
+        accentColor: Color(0xFF8C1F0F),
+      ),
+      debugShowCheckedModeBanner: false,
+      routes: {},
+      home: SplashScreen(),
     );
   }
 }

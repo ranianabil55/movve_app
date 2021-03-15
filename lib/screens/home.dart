@@ -4,6 +4,7 @@ import 'package:movve_app/constant.dart';
 import 'package:movve_app/model/movie_model.dart';
 import 'package:movve_app/networking/movie_client.dart';
 import 'package:movve_app/screens/custom_list.dart';
+import 'package:movve_app/screens/custom_listtile.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -92,32 +93,68 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.only(left: 22, top: 5, bottom: 7),
-                child: Text("Popular Movie", style: kHeadersLines),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (ctx) => CustomListTile(
+                              this.popularMovies, "Popular Movie")));
+                },
+                child: Padding(
+                  padding: EdgeInsets.only(left: 22, top: 5, bottom: 7),
+                  child: Text("Popular Movie", style: kHeadersLines),
+                ),
               ),
               CustomList(this.popularMovies),
-              Padding(
-                padding: EdgeInsets.only(left: 22, top: 5, bottom: 7),
-                child: Text(
-                  "Top Rated",
-                  style: kHeadersLines,
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (ctx) => CustomListTile(
+                              this.topRatedMovies, "Top Rated")));
+                },
+                child: Padding(
+                  padding: EdgeInsets.only(left: 22, top: 5, bottom: 7),
+                  child: Text(
+                    "Top Rated",
+                    style: kHeadersLines,
+                  ),
                 ),
               ),
               CustomList(this.topRatedMovies),
-              Padding(
-                padding: EdgeInsets.only(left: 22, top: 5, bottom: 7),
-                child: Text(
-                  "Upcoming",
-                  style: kHeadersLines,
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (ctx) =>
+                              CustomListTile(this.topRatedMovies, "Upcoming")));
+                },
+                child: Padding(
+                  padding: EdgeInsets.only(left: 22, top: 5, bottom: 7),
+                  child: Text(
+                    "Upcoming",
+                    style: kHeadersLines,
+                  ),
                 ),
               ),
               CustomList(this.upcomingMovies),
-              Padding(
-                padding: EdgeInsets.only(left: 22, top: 5, bottom: 7),
-                child: Text(
-                  "Now Playing",
-                  style: kHeadersLines,
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (ctx) => CustomListTile(
+                              this.topRatedMovies, "Now Playing")));
+                },
+                child: Padding(
+                  padding: EdgeInsets.only(left: 22, top: 5, bottom: 7),
+                  child: Text(
+                    "Now Playing",
+                    style: kHeadersLines,
+                  ),
                 ),
               ),
               CustomList(this.nowPlayingMovies),
