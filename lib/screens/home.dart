@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:movve_app/constant.dart';
+import 'package:movve_app/model/movie_model.dart';
+import 'package:movve_app/networking/movie_client.dart';
 import 'package:movve_app/screens/custom_list.dart';
 
 class HomePage extends StatefulWidget {
@@ -9,6 +11,48 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<Movie> popularMovies = List();
+  List<Movie> nowPlayingMovies = List();
+  List<Movie> upcomingMovies = List();
+  List<Movie> topRatedMovies = List();
+
+  @override
+  void initState() {
+    MovieClient.getMovies(MovieType.nowPlaying).then((movies) {
+      nowPlayingMovies = movies;
+      setState(() {});
+      print(movies);
+    }).catchError((onError) {
+      print(onError);
+    });
+
+    MovieClient.getMovies(MovieType.popular).then((movies) {
+      popularMovies = movies;
+      setState(() {});
+      print(movies);
+    }).catchError((onError) {
+      print(onError);
+    });
+
+    MovieClient.getMovies(MovieType.upcoming).then((movies) {
+      upcomingMovies = movies;
+      setState(() {});
+      print(movies);
+    }).catchError((onError) {
+      print(onError);
+    });
+
+    MovieClient.getMovies(MovieType.topRated).then((movies) {
+      topRatedMovies = movies;
+      setState(() {});
+      print(movies);
+    }).catchError((onError) {
+      print(onError);
+    });
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,7 +96,7 @@ class _HomePageState extends State<HomePage> {
                 padding: EdgeInsets.only(left: 22, top: 5, bottom: 7),
                 child: Text("Popular Movie", style: kHeadersLines),
               ),
-              CustomList(3, images, names),
+              CustomList(this.popularMovies),
               Padding(
                 padding: EdgeInsets.only(left: 22, top: 5, bottom: 7),
                 child: Text(
@@ -60,7 +104,7 @@ class _HomePageState extends State<HomePage> {
                   style: kHeadersLines,
                 ),
               ),
-              CustomList(3, images, names),
+              CustomList(this.topRatedMovies),
               Padding(
                 padding: EdgeInsets.only(left: 22, top: 5, bottom: 7),
                 child: Text(
@@ -68,7 +112,15 @@ class _HomePageState extends State<HomePage> {
                   style: kHeadersLines,
                 ),
               ),
-              CustomList(3, images, names),
+              CustomList(this.upcomingMovies),
+              Padding(
+                padding: EdgeInsets.only(left: 22, top: 5, bottom: 7),
+                child: Text(
+                  "Now Playing",
+                  style: kHeadersLines,
+                ),
+              ),
+              CustomList(this.nowPlayingMovies),
             ],
           ),
         ),

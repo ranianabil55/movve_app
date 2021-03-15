@@ -1,14 +1,50 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:movve_app/model/top_rated.dart';
+import 'package:movve_app/model/movie_model.dart';
+
+enum MovieType { topRated, nowPlaying, popular, upcoming }
 
 class MovieClient {
-  Future<MovieTopRated> getMovie(String url) async {
-    //final String url = kTopRated;
-    final response = await http.get(url);
+  static String _convertMoveTypeToString(MovieType movieType) {
+    switch (movieType) {
+      case MovieType.topRated:
+        return "top_rated";
+      case MovieType.nowPlaying:
+        return "now_playing";
+      case MovieType.popular:
+        return "popular";
+      case MovieType.upcoming:
+        return "upcoming";
+    }
+  }
+
+  static String _getMovieEndPoint(String typeOfMove) {
+    var endpointUrl = "https://api.themoviedb.org/3/movie/$typeOfMove";
+    Map<String, String> queryParams = {
+      'api_key': 'a1be7d3c3df5ffc68e5dc294b9b84e82',
+      'language': 'en-US',
+      'page': '1',
+    };
+
+    String queryString = Uri(queryParameters: queryParams).query;
+
+    return endpointUrl + '?' + queryString;
+  }
+
+  static Future<List<Movie>> getMovies(MovieType movieType) async {
+    String typeOfMove = _convertMoveTypeToString(movieType);
+    var endpointUrl = _getMovieEndPoint(typeOfMove);
+
+    final response = await http.get(endpointUrl);
+
     if (response.statusCode == 200) {
-      final json = jsonDecode(response.body);
-      return MovieTopRated.fromJson(json);
+      Map json = jsonDecode(response.body);
+
+      List<Movie> results = (json['results'] as List)
+          .map((movieJson) => Movie.fromJson(movieJson))
+          .toList();
+
+      return results;
     } else
       throw Exception('Error');
   }
