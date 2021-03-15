@@ -3,7 +3,6 @@ import 'package:lottie/lottie.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:movve_app/screens/login_screen.dart';
 
-
 class SplashScreen extends StatefulWidget {
   @override
   _SplashScreenState createState() => _SplashScreenState();
