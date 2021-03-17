@@ -76,12 +76,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: RaisedButton(
                     color: Color(0xFF8C1F0F),
                     onPressed: () {
-                      if (_formKey.currentState.validate()) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => HomePage()),
-                        );
-                      }
+                      // if (_formKey.currentState.validate()) {
+                      //   Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(builder: (context) => HomePage()),
+                      //   );
+                      // }
                     },
                     child: Text('Submit'),
                   ),
